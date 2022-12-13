@@ -1,10 +1,27 @@
-@extends('Admins.layout')
- 
+@extends('layout')
 @section('content')
-    <div class="row">
+
+    <main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+        <h2>Admin page of the EW-System</h2>
+        <div class="btn-toolbar mb-2 mb-md-0">
+          <div class="btn-group me-2">
+            <button type="button" class="btn btn-sm btn-outline-secondary">Share</button>
+            <button type="button" class="btn btn-sm btn-outline-secondary">Export</button>
+          </div>
+          <button type="button" class="btn btn-sm btn-outline-secondary dropdown-toggle">
+            <span data-feather="calendar" class="align-text-bottom"></span>
+            This week
+          </button>
+        </div>
+      </div>
+
+
+      <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+      <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
-                <h2>Admin page of the EW-System</h2>
+                
             </div>
             <div class="pull-right">
                 <a class="btn btn-success" href="{{ route('Admins.create') }}"> Create New Admin</a>
@@ -18,31 +35,26 @@
         </div>
     @endif
    
-    <table class="table table-bordered">
+    <table class="table table-bordered" >
         <tr>
-            <th>No</th>
+            <th>id</th>
             <th>fistName</th>
             <th>lastName</th>
-            <th>gender</th>
+            <th>address</th>
             <th>level</th>
             <th>profession</th>
-            <th>password</th>
             <th>role</th>
-            <th>mobile</th>
-            <th width="280px">Action</th>
+            <th width="400px">Action</th>
         </tr>
         @foreach ($admin as $item)
         <tr>
-        <td>{{ $loop->iteration }}</td>
+        <td>{{ $item->id }}</td>
         <td>{{ $item->first_name }}</td>
-        <td>{{ $item->second_name }}</td>
-        <td>{{ $item->gender }}</td>                                        
+        <td>{{ $item->second_name }}</td>                                     
         <td>{{ $item->address }}</td>
         <td>{{ $item->level }}</td>
         <td>{{ $item->profession }}</td>
-        <td>{{ $item->password }}</td>
         <td>{{ $item->role }}</td>
-        <td>{{ $item->mobile }}</td>
             <td>
             <a href="{{ url('/Admins/' . $item->id) }}" title="View "><button class="btn btn-info btn-sm"><i class="fa fa-eye" aria-hidden="true"></i> View</button></a>
                                             <a href="{{ url('/Admins/' . $item->id . '/edit') }}" title="Edit Admins"><button class="btn btn-primary btn-sm"><i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit</button></a>
@@ -57,6 +69,10 @@
     </table>
   
     {!! $admin->links() !!}
+    
       
+    </main>
 @endsection
-                                                                           <td>
+                                                                           
+
+

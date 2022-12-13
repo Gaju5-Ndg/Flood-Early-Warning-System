@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <title>Laravel</title>
+        <title>Warning System</title>
 
         <!-- Fonts -->
         <link href="https://fonts.bunny.net/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
@@ -21,53 +21,101 @@
                 font-family: 'Nunito', sans-serif;
             }
         </style>
+         <style>
+.dropbtn {
+  background-color: #212121;
+  color: white;
+  padding: 16px;
+  font-size: 16px;
+  border: none;
+  cursor: pointer;
+}
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #212121;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+.dropdown-content a:hover {background-color: gray}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+.dropdown:hover .dropbtn {
+  background-color: gray;
+}
+</style>
     </head>
     <body class="antialiased">
-    <nav class="navbar navbar-expand-lg bg-secondary px-3">
+    <nav class="navbar navbar-expand-lg bg-dark px-3"style="color:white">
   <div class="container-fluid  d-flex  align-items-center">
-    <a class="navbar-brand" href="#">Warning system</a>
-    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <a class="navbar-brand"style="color:white;" href="#">Warning system</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" style="color:white;"aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse bg-secondary d-flex align-items-center" id="navbarSupportedContent">
+    <div class="collapse navbar-collapse bg-second d-flex align-items-center" id="navbarSupportedContent" >
       <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex align-items-center">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <a class="nav-link active" aria-current="page" style="color:white;" href="{{ url('/dashboard') }}">Home</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">About</a>
+          <a class="nav-link"style="color:white;" href="#">About</a>
         </li>
         <div class="dropdown">
-            <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-              Dropdown button
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="{{ url('/Admins') }}">Admins</a></li>
-              <li><a class="dropdown-item" href="{{ url('/Stations') }}">Stations</a></li>
-              <li><a class="dropdown-item" href="#">Users</a></li>
-            </ul>
+        <div class="dropdown2">
+  <button class="dropbtn"style="color:dark;">Our Station</button>
+  <div class="dropdown-content">
+  <a href="{{ url('/river/1') }}">Sebeya</a>
+  <a href="{{ url('/river/2') }}">Nyabugogo</a>
+  <a href="{{ url('/river/4') }}">Nyakabanda</a>
+  </div>
+</div>
         </div>
         <li class="nav-item">
-          <a class="nav-link disabled">suggestions</a>
+          <a class="nav-link disabled"style="color:white;">Notification</a>
         </li>
         <form class="d-flex px-5" role="search">
         <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success" type="submit">Search</button>
       </form>
       </ul>
-       @if (Route::has('login'))
-                <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block ">
-                    @auth
-                        <a href="{{ url('/dashboard') }}" class="text-sm text-black-700 dark:text-black-500 underline">Dashboard</a>
-                    @else
-                        <a href="{{ route('login') }}" class="text-sm text-black-700 dark:text-black-500 underline">Log in</a>
+      
+            <div class="pt-4 pb-1 border-t border-gray-200">
+            <div class="px-4">
+                <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
+                
+            </div>
 
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}" class="ml-4 text-sm text-gray-700 dark:text-gray-500 underline">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
+            <div class="mt-3 space-y-1">
+                <!-- Authentication -->
+                <form method="POST" action="{{ route('logout') }}">
+                    @csrf
+
+                    <x-responsive-nav-link :href="route('logout')"
+                            onclick="event.preventDefault();
+                                        this.closest('form').submit();">
+                        {{ __('Log Out') }}
+                    </x-responsive-nav-link>
+                </form>
+            </div>
+        </div>
       
     </div>
   </div>

@@ -1,64 +1,37 @@
-@extends('users.layout')
-  
+@extends('layout')
 @section('content')
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
 <div class="card">
-  <div class="card-header">Admins Page</div>
+  <div class="card-header">Users Page</div>
   <div class="card-body">
-            <a class="btn btn-primary" href="{{ route('users.index') }}"> Back</a>
-
-   
-@if ($errors->any())
-    <div class="alert alert-danger">
-        <strong>Whoops!</strong> There were some problems with your input.<br><br>
-        <ul>
-            @foreach ($errors->all() as $error)
-                <li>{{ $error }}</li>
-            @endforeach
-        </ul>
-    </div>
-@endif
-   
-<form action="{{ route('users.store') }}" method="POST">
-    @csrf
+      
+      <form action="{{ url('Users') }}" method="post">
+        {!! csrf_field() !!}
+        <label>First name</label></br>
+        <input type="text" name="firstname" id="first_name"  class="form-control"></br>
+        <label>last name</label></br>
+        <input type="text" name="lastname" id="second_name" class="form-control"></br>
+        <label>Address</label></br>
+        <input type="text" name="address" id="address" class="form-control"></br>
+        <label>profession </label></br>
+        <input type="text" name="profession" id="profession" class="form-control"></br>
+        <label>Email</label></br>
+        <input type="email" name="email" id="email" class="form-control"></br>
+        <label>password</label></br>
+        <input type="password" name="password" id="password" class="form-control"></br>
+        <label>mobile</label></br>
+        <input type="text" name="mobile" id="mobile" class="form-control"></br>
+        <label>Role</label></br>
+        <select name="role" class="form-control">
+            @foreach($roles as $role)
+        <option value="{{$role->name}}">{{$role->name}}</option>
+        @endforeach
+       </select></br>
+        <input type="submit" value="Save" class="btn btn-success" ></br>
+    </form>
   
-     
-            <div >
-                <strong>Name:</strong>
-                <input type="text" name="name" class="form-control" placeholder="Name">
-            </div>
-       
-            <div >
-                <strong>Email:</strong>
-                <input type="text" name="email" class="form-control" placeholder="email">
-            </div>
-            <div>
-                <strong>Station:</strong>
-                <select class="form-control">
-<option value="s_1"> Mukungwa</option>
-<option value="s_2"> Nyabugogo</option>
-<option value="s_3"> Nyakabanda</option>
-<option value="s_4"> Sebeya</option>
-                </select>
-            </div>
-            <div >
-                <strong>password:</strong>
-                <input type="password" name="password" class="form-control" placeholder="password">
-            </div>
-            <div >
-                <strong>password:</strong>
-                
-                <input type="password" name="password" class="form-control" placeholder="password">
-            </div>
-       
-            <div >
-                <strong>Phone_number:</strong>
-                <input type="text" name="phone_number" class="form-control" placeholder="phone_number">
-            </div>
-       
-        <div class="col-xs-12 col-sm-12 col-md-12 text-center">
-                <button type="submit" class="btn btn-primary">Submit</button>
-        </div>
-    </div>
-   
-</form>
-@endsection
+  </div>
+</div>
+@stop
+
+

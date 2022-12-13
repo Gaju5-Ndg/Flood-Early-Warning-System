@@ -1,6 +1,7 @@
-@extends('Admins.layout')
+@extends('layout')
   
 @section('content')
+<main class="col-md-9 ms-sm-auto col-lg-10 px-md-4">
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="pull-left">
@@ -17,7 +18,6 @@
             <div class="form-group">
                 <strong>Names:</strong>
                 {{ $station->name }} 
-                {{-- {{ $admin->last_name }} --}}
             </div>
             </div>
         </div>
@@ -31,4 +31,5 @@
             </div>
         </div>
     </div>
+</main>
 @endsection

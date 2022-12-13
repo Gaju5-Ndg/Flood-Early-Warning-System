@@ -18,9 +18,9 @@ class Station extends Model
     ''
     ];
 
-    public function Admin()
+    public function User()
     {
-        return $this->belongsTo(Admin::class);
+        return $this->belongsTo(User::class);
     }
     public function Soil_moisture()
     {
@@ -33,9 +33,5 @@ class Station extends Model
     public function Water_level()
     {
         return $this->hasOne(Station::class);
-    }
-    public function User()
-    {
-        return $this->hasMany(Station::class);
     }
 }

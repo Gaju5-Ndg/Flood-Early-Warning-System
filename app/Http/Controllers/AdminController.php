@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
    
 use App\Models\Admin;
 use Illuminate\Http\Request;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
+
   
 class AdminController extends Controller
 {
@@ -14,7 +17,7 @@ class AdminController extends Controller
      */
     public function index()
     {
-        $admin = Admin::latest()->latest()->paginate(5);
+        $admin = Admin::all();
     
         return view('Admins.index',compact('admin'))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -27,6 +30,7 @@ class AdminController extends Controller
      */
     public function create()
     {
+        
         return view('Admins.create');
     }
     
@@ -38,23 +42,20 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        $request->validate([
-            'first_name'=>'required',
-            'second_name'=>'required',
-            'gender'=>'required',
-            'address'=>'required',
-            'level'=>'required',
-            
-            'profession'=>'required',
-            'password'=>'required',
-            'role'=>'required',
-            'mobile'=>'required'
-        ]);
-    
-        $admin->store($request);
+        $admin=new Admin;
+       $admin->first_name=$request->first_name;
+       $admin->second_name=$request->second_name;
+       $admin->gender=$request->gender;
+       $admin->address=$request->address;
+       $admin->level=$request->level;
+       $admin->profession=$request->profession;
+       $admin->password=$request->password;
+       $admin->role=$request->role;
+       $admin->mobile=$request->mobile;
+       $admin->save();
     
         return redirect()->route('Admins.index')
-                        ->with('success','admins created successfully');;
+                        ->with('success','admin created successfully');;
     }
      
     /**
@@ -98,7 +99,7 @@ class AdminController extends Controller
         $admin->update($input);
     
         return redirect()->route('Admins.index')
-                        ->with('success','admins updated successfully');
+                        ->with('success','admin updated successfully');
     }
     /**
      * Remove the specified resource from storage.

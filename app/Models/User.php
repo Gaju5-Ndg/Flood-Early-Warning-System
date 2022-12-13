@@ -9,6 +9,7 @@ use Illuminate\Notifications\Notifiable;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 use Laravel\Jetstream\HasProfilePhoto;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
@@ -16,7 +17,7 @@ class User extends Authenticatable
     use HasFactory;
     use HasProfilePhoto;
     use Notifiable;
-    use TwoFactorAuthenticatable;
+    use TwoFactorAuthenticatable,HasRoles;
 
     /**
      * The attributes that are mass assignable.
@@ -24,9 +25,15 @@ class User extends Authenticatable
      * @var string[]
      */
     protected $fillable = [
-        'name',
-        'email',
-        'password',
+ 'email',
+  'password',
+   'firstname',
+    'lastname',
+    'gender',
+    'address',
+     'profession',
+      'role',
+    'mobile'
     ];
 
     /**
@@ -40,7 +47,10 @@ class User extends Authenticatable
         'two_factor_recovery_codes',
         'two_factor_secret',
     ];
-
+    public function Station()
+    {
+     return $this->hasOne(Station::class);
+    }
     /**
      * The attributes that should be cast.
      *

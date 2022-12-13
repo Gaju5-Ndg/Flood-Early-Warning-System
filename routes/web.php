@@ -1,12 +1,9 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\userController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\StationController;
-  
-
-
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -18,44 +15,27 @@ use App\Http\Controllers\StationController;
 |
 */
 
-
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('page/', function () {
-    return view('pages.index');
-});
- Route::get('/main',function () {
-    return view('login');
- });
+Route::get('/dashboard', function () {
+    return view('dashboard');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
-/*Route::get('/users', [usersController::class,'index']);
-Route::get('/add', [usersController::class,'create']);*/
+require __DIR__.'/auth.php';
 
-Route::resource('users', userController::class);
-Route::resource('users', userController::class);
-Route::resource('Admins', AdminController::class);
-Route::resource('Stations', StationController::class);
-// Route::get('/users', function () {
-//     return view('users.index');
-// });
+Route::get('/about', function () {
+    return view('about');});
+//  Route::get('/Stations/river', function () {
+//         return view('river');});
+Route::resource('/Admins', AdminController::class);
+Route::resource('/Stations', StationController::class);
+Route::get('/station_info', [StationController::class,'stationInfo']);
+Route::resource('/Users', UserController::class);
 
-
-
-Route::middleware([
-    'auth:sanctum',
-    config('jetstream.auth_session'),
-    'verified'
-])->group(function () {
-    Route::get('/dashboard', function () {
-        return view('dashboard');
-    })->name('dashboard');
-});
-
-
-// Route::post('add',[AdminController::class,'store']);
-// Route::view('add','Admins');
-// Route::post('create',[StationController::class,'insertintostation']);
-// Route::view('create','Stations');
-// Route::get('create',[AdminController::class,'show']);
+Route::get('/station/{id}', [StationController::class,'waterdata']);
+Route::patch('/rivers/wl/{id}', [StationController::class,'updateWaterData']);
+Route::patch('/rivers/sl/{id}', [StationController::class,'updateSoilData']);
+Route::patch('/rivers/temp/{id}', [StationController::class,'updateTempData']);
+//Route::resource('Admins', AdminController::class);

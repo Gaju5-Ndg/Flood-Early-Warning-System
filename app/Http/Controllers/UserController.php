@@ -2,8 +2,12 @@
   
 namespace App\Http\Controllers;
    
-use App\Models\People;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
   
 class UserController extends Controller
 {
@@ -14,83 +18,108 @@ class UserController extends Controller
      */
     public function index()
     {
-       
+        $user = User::latest()->paginate(5);
+    
+        return view('Users.index',compact('user'))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
      
-   
-    public function create(Request $request)
+    /**
+     * Show the form for creating a new resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function create()
     {
-        $user=new People;
-        $user->first_name=$request->first_name;
-        $user->second_name=$request->second_name;
-        $user->address=$request->address;
-        $user->profession=$request->profession;
-        $user->password=$request->password;
-        $user->mobile=$request->mobile;
-        $user->station_id=$request->station_id;
-        $result=$user->save();
-        return $user;
+        $roles=Role::all();
+        return view('Users.create')->with('roles',$roles);
     }
     
-  
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
     public function store(Request $request)
     {
-     
+        // $request->validate([
+        //     'firstname' => ['required', 'string', 'max:255'],
+        //     'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
+        //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
+        // ]);
+        $user = User::create([
+            'email' => $request->email,
+            'password' => Hash::make($request->password),
+            'firstname'=>$request->firstname,
+            'lastname'=>$request->lastname,
+            'gender'=>$request->gender,
+           ' address'=>$request->address,
+            'profession'=>$request->profession,
+            'role'=>$request->role,
+            'mobile'=>$request->mobile
+        ]);
+        $user->assignRole($request->role);
+        return redirect()->route('Users.index')
+                        ->with('success','farmer created successfully');
     }
      
     /**
      * Display the specified resource.
      *
-     * @param  \App\users  $users
+    
      * @return \Illuminate\Http\Response
      */
-    public function showpeople()
-    {
-        return People::all();
+    public function show($id){
+
+    
+    $user=User::find($id);
+    
+        return view('Users.show')->with('user',$user);
     } 
      
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\users  $usrs
+     
      * @return \Illuminate\Http\Response
      */
-    public function edit(users $users)
+    public function edit( Request $request ,$id)
     {
-       ;
+        $user=User::find( $id);
+        $user->assignRole($request->role);
+        return view('Users.edit')->with('user',$user);
     }
     
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\users  $users
+     
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, users $users)
+    public function update(Request $request, $id)
     {
-        // $request->validate([
-        //     'name' => 'required',
-        //     'detail' => 'required',
-        // ]);
-    
-        // $users->update($request->all());
-    
-        // return redirect()->route('users.index')
-        //                 ->with('success','users updated successfully');
+        
+        $user=User::where($id)->get();
+        $input=$request->all();
+        $user->update($input);
+       
+        return redirect()->route('Users.index')
+                        ->with('success','farmer updated successfully');
     }
-    
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Product  $product
+     
      * @return \Illuminate\Http\Response
      */
-    public function destroy(users $users)
+    public function destroy($id)
     {
-        // $users->delete();
+        User::destroy($id);
     
-        // return redirect()->route('users.index')
-        //                 ->with('success','users deleted successfully');
+        return redirect()->route('Users.index')
+                        ->with('success','farmer deleted successfully');
     }
 }
+   
