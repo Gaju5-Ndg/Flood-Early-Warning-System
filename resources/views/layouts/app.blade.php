@@ -15,7 +15,7 @@
         </div>
       </div>
 
-      <!-- <canvas class="my-4 w-100" id="myChart" width="900" height="380"></canvas> -->
+    
       
       <div class="container-fluid px-4"style='width:'>
       <div class="card bg-primary text-white mb-4">

@@ -49,15 +49,16 @@ class UserController extends Controller
         //     'password' => ['required', 'confirmed', Rules\Password::defaults()],
         // ]);
         $user = User::create([
-            'email' => $request->email,
-            'password' => Hash::make($request->password),
             'firstname'=>$request->firstname,
             'lastname'=>$request->lastname,
+            'email' => $request->email,
             'gender'=>$request->gender,
            ' address'=>$request->address,
-            'profession'=>$request->profession,
+            'position'=>$request->profession,
             'role'=>$request->role,
-            'mobile'=>$request->mobile
+            'mobile'=>$request->mobile,
+            'username'=>$request->$Username,
+            'password' => Hash::make($request->password),
         ]);
         $user->assignRole($request->role);
         return redirect()->route('Users.index')
@@ -106,7 +107,7 @@ class UserController extends Controller
         $user->update($input);
        
         return redirect()->route('Users.index')
-                        ->with('success','farmer updated successfully');
+                        ->with('success','user updated successfully');
     }
     /**
      * Remove the specified resource from storage.
