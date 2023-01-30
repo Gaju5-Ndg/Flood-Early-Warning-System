@@ -2,7 +2,7 @@
 <x-guest-layout>
     <x-auth-card>
         <x-slot name="logo">
-            <img class="rounded-circle" src="image/icon.jpg" alt=" Sebeya station" width="80" height="70">
+            <img class="rounded-circle" src="image/icon.jpg" alt=" " width="80" height="70">
               <!-- <x-application-logo class="w-20 h-20 fill-current text-gray-500" /> -->
             </a>
         </x-slot>

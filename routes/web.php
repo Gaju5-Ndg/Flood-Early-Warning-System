@@ -39,3 +39,4 @@ Route::patch('/rivers/wl/{id}', [StationController::class,'updateWaterData']);
 Route::patch('/rivers/sl/{id}', [StationController::class,'updateSoilData']);
 Route::patch('/rivers/temp/{id}', [StationController::class,'updateTempData']);
 //Route::resource('Admins', AdminController::class);
+Route::post('/users',[UserController::class,'store']);

@@ -17,8 +17,12 @@ class RoleAndPermissionSeeder extends Seeder
     public function run()
     {
         $adminRole=Role::create(['name'=>'Super Admin']);
-        $managerRole = Role::create(['name'=>'Land manager']);
-        $leaderRole = Role::create(['name'=>'Leader']);
+        $managerRole = Role::create(['name'=>'REMAsupervisor']);
+        $leaderRole = Role::create(['name'=>'Districtoffice']);
+        $leaderRole = Role::create(['name'=>'sectoroffice']);
+        $leaderRole = Role::create(['name'=>'celloffice']);
+        $leaderRole = Role::create(['name'=>'village leader']);
+        $leaderRole = Role::create(['name'=>'none']);
 
         Permission::create(['name' => 'create-station']);
         Permission::create(['name' => 'edit-station']);
@@ -28,6 +32,9 @@ class RoleAndPermissionSeeder extends Seeder
         Permission::create(['name' => 'create-users']);
         Permission::create(['name' => 'view-users']);
         Permission::create(['name' => 'edit-users']);
+        Permission::create(['name' => 'delete-users']);
+        Permission::create(['name' => 'send-arlet']);
+        Permission::create(['name' => 'view-location']);
         Permission::create(['name' => 'delete-users']);
 
       $adminRole->givePermissionTo(Permission::all());

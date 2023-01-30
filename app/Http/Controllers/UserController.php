@@ -53,16 +53,18 @@ class UserController extends Controller
             'lastname'=>$request->lastname,
             'email' => $request->email,
             'gender'=>$request->gender,
-           ' address'=>$request->address,
+           ' adress'=>$request->adress,
             'position'=>$request->profession,
             'role'=>$request->role,
             'mobile'=>$request->mobile,
-            'username'=>$request->$Username,
+            'username'=>$request->username,
             'password' => Hash::make($request->password),
         ]);
         $user->assignRole($request->role);
-        return redirect()->route('Users.index')
-                        ->with('success','farmer created successfully');
+        // return redirect()->route('Users.index')
+        //                 ->with('success','farmer created successfully');
+
+        return view('auth/login');
     }
      
     /**
